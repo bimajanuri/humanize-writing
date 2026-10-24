@@ -1,7 +1,7 @@
 ---
 name: humanize-writing
 description: |
-  Rewrites, paraphrases, and humanizes Bahasa Indonesia or English text while preserving meaning and avoiding fabricated facts. Supports paraphrase, humanize, anti-slop, de-hallucination/fact-grounding, grammar/EYD, evaluation, and full rewrite workflows. Use for natural rewrites, AI-pattern reduction, grammar checks, factual grounding, quality evaluation, shortening, tone/register changes, or named styles including Formal, Academic, Professional, Casual, Diplomatic, Educational, Simple, Confident, and Marketing. Includes language routing, claim guardrails, modular rewrite patterns, optional LanguageTool integration guidance, evaluation rubrics, AI-pattern lexicons, and final audit gates.
+  Rewrites, paraphrases, and humanizes Bahasa Indonesia or English text while preserving meaning and avoiding fabricated facts. Supports paraphrase, humanize, anti-slop, de-hallucination/fact-grounding, grammar/EYD, citation-style normalization, evaluation, and full rewrite workflows. Use for natural rewrites, AI-pattern reduction, grammar checks, factual grounding, quality evaluation, shortening, tone/register changes, or named styles including Formal, Academic, Professional, Casual, Diplomatic, Educational, Simple, Confident, and Marketing. Includes language routing, claim guardrails, modular rewrite patterns, optional LanguageTool integration guidance, seven citation styles, evaluation rubrics, AI-pattern lexicons, and final audit gates.
 compatibility: Agent Skills-compatible AI coding assistants and chat agents
 ---
 
@@ -14,7 +14,7 @@ A **rewriting engine** that transforms AI-flavored text (Bahasa Indonesia or Eng
 This skill adapts and expands on:
 - **blader/humanizer** — the 26 AI-writing patterns used as the detection baseline
 - **EYD 2022 / PUEBI & KBBI** — Bahasa Indonesia orthography and dictionary standards
-- Standard copy-editing practice (Chicago / APA house style for EN; registered style guides for ID)
+- Standard copy-editing practice and citation normalization (APA 7, MLA 9, Turabian, Vancouver, Harvard, Chicago, and IEEE for EN; registered style guides for ID)
 - **Ragas / DeepEval** — rubric-based evaluation, test cases, and regression thinking
 - **Guardrails** — explicit input/output validation and failure handling
 - **LanguageTool** — mechanical grammar and spelling checks when an external checker is available
@@ -39,6 +39,7 @@ Pick the mode from the user's request before touching the text. If the request i
 | **FACT** De-Hallucinate | "fact-check", "remove hallucinations", "is this true?", "ground this text" | `protocols/anti-hallucination.md` |
 | **GRAM** Grammar/EYD | "cek EYD", "check grammar", "periksa ejaan", "fix punctuation/spelling" | `protocols/grammar-id.md` or `protocols/grammar-en.md` |
 | **EVAL** Quality Evaluation | "evaluate this rewrite", "score quality", "compare versions", "uji kualitas" | `protocols/evaluation.md` + `references/evaluation-rubric.md` |
+| **CITE** Citation Style | "format citations", "use APA 7", "convert to IEEE", "normalize references" | `protocols/citations.md` + `references/citation-styles.md` |
 | **FULL** Full Rewrite | default / "make this not look like AI at all" | All of the above, in pipeline order (see `core/workflow.md`) + one style preset from `references/style-presets.md` |
 
 **Language routing**: auto-detect the input language (ID vs EN). Mixed-language inputs are handled per-segment. For every language-specific file use the matching variant: `<lang>` = `id` or `en`. If detection is uncertain, ask one short question rather than guessing.
@@ -65,7 +66,8 @@ FULL mode locks **one** style preset before rewriting. Definitions, per-style ex
 4. The protocol(s) for your mode (table above).
 5. `protocols/guardrails.md` — validate every output before delivery.
 6. `checklists/final-audit.md` — run before delivering ANY rewrite.
-7. `templates/report.md` — format of the deliverable (when the user wants a report; otherwise deliver clean text only).
+7. `references/citation-styles.md` — style rules when citation or reference formatting is requested.
+8. `templates/report.md` — format of the deliverable (when the user wants a report; otherwise deliver clean text only).
 
 > **Do not skip the final audit.** The audit catches meaning drift, residual AI patterns, and grammar regressions — the three ways rewrites fail.
 

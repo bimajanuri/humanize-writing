@@ -1,6 +1,10 @@
 # Protocol — Grammar & Mechanics, English (GRAM / en)
 
-Authority: the user's declared house style; default **US English (Chicago/APA-compatible)**. UK/Australian/Canadian register is honored when requested or clearly established in the document. Style preferences are labeled "gaya/style"; only actual errors are labeled errors.
+Authority: the user's declared house style; default **US English**. If citation or reference
+formatting is requested, lock one of APA 7, MLA 9, Turabian, Vancouver, Harvard, Chicago, or
+IEEE through `protocols/citations.md`. UK/Australian/Canadian register is honored when requested
+or clearly established in the document. Style preferences are labeled "style"; only actual errors
+are labeled errors.
 
 ---
 

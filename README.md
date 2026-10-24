@@ -13,13 +13,14 @@ A rewriting engine that transforms AI-flavored text — **Bahasa Indonesia or En
 | **Anti-Slop** | Kills formulaic skeletons, false symmetry, generic claims, and template openers/closers |
 | **De-Hallucinate** | 1:1 claim mapping, V1–V5 verification classes, flagging protocol for suspicious source claims |
 | **Grammar / EYD** | EYD 2022/PUEBI + KBBI for ID (incl. foreign terms preserved untranslated); US/UK register for EN + translationese detection |
+| **Citation styles** | APA 7, MLA 9, Turabian, Vancouver, Harvard, Chicago, and IEEE; formatting only from supplied or verified sources |
 | **Quality Evaluation** | Rubric-based scoring, claim-diff checks, pairwise comparison, and reusable regression cases |
 | **Guardrails** | Explicit validators for claim preservation, modality, entities, quotations, formatting, and no-fabrication |
 | **Full Rewrite** | All of the above as a 7-stage pipeline with mandatory guardrail and final-audit checks |
 
 ## Modes
 
-Pick via triggers: paraphrase / parafrase · humanize / humanisasi / hilangkan jejak AI · AI slop · fact check / anti halusinasi / cek fakta · cek EYD / grammar check · evaluate / score / uji kualitas · default = FULL.
+Pick via triggers: paraphrase / parafrase · humanize / humanisasi / hilangkan jejak AI · AI slop · fact check / anti halusinasi / cek fakta · cek EYD / grammar check · citation formatting / APA / MLA / Turabian / Vancouver / Harvard / Chicago / IEEE · evaluate / score / uji kualitas · default = FULL.
 
 ## Style presets (FULL mode)
 
@@ -48,11 +49,13 @@ humanize-writing/
 │   ├── patterns.md              ← composable rewrite patterns inspired by Fabric
 │   ├── grammar-id.md            ← EYD 2022/PUEBI + KBBI, §3.1 foreign terms stay untranslated
 │   └── grammar-en.md            ← US/UK register, translationese (ID→EN)
+│   └── citations.md              ← seven citation-style normalization workflow
 ├── references/
 │   ├── ai-lexicon-en.md         ← EN AI word/structure lexicon + density scoring
 │   ├── ai-lexicon-id.md         ← ID AI word/structure lexicon + density scoring
-│   └── style-presets.md         ← 9 register presets with examples & watchlists
-│   └── evaluation-rubric.md     ← quality dimensions, scoring anchors, and thresholds
+│   ├── style-presets.md         ← 9 register presets with examples & watchlists
+│   ├── evaluation-rubric.md     ← quality dimensions, scoring anchors, and thresholds
+│   └── citation-styles.md       ← seven citation-style reference
 ├── checklists/
 │   └── final-audit.md           ← mandatory gates: meaning, AI patterns, grammar, flow, AI-risk, and guardrails
 └── templates/
@@ -79,9 +82,12 @@ This is a portable [Agent Skills](https://agentskills.io/) package. Keep the com
 | GitHub Copilot CLI | Yes, Agent Skills standard | `.github/skills/`, `~/.copilot/skills/`, or `.agents/skills/` | A current Copilot CLI with skills support | `/skills reload`, then `/skills info humanize-writing` |
 | Google Antigravity App/CLI/IDE | Yes, Agent Skills standard | `.agents/skills/` or `~/.gemini/config/skills/` | An Antigravity surface with Agent Skills enabled | Reload the workspace; use `/humanize-writing` or natural language |
 | ChatGPT | Conditional, product/workspace feature | Uploaded ZIP through Skills UI | Eligible Business, Enterprise, Healthcare, or Edu workspace with Skills and upload permissions | Upload, enable, then ask ChatGPT to use the skill |
+| Codex CLI | Agent Skills support varies by release | `.agents/skills/` or documented path | A release with folder-based skill discovery | Reload skills and request `humanize-writing` |
+| Cursor | Agent Skills support varies by release | `.cursor/skills/` or `.agents/skills/` | A release with custom skill/Markdown support | Reload the project and request `humanize-writing` |
+| Windsurf | Agent Skills support varies by release | Documented workspace skill path or `.agents/skills/` | A release with custom workflow/skill support | Reload the workspace and request `humanize-writing` |
 | Other compatible agents | Depends on implementation | `.agents/skills/` or documented platform path | Agent Skills discovery and Markdown resource access | Follow the host's reload/list command |
 
-The skill itself has no runtime package, API key, database, or operating-system-specific dependency. All rewriting, guardrails, and evaluation procedures are instruction-driven. LanguageTool, web access, and external evaluation frameworks are optional enhancements, not installation requirements.
+The skill itself has no runtime package, API key, database, or operating-system-specific dependency. All rewriting, citation-style guidance, guardrails, and evaluation procedures are instruction-driven. LanguageTool, web access, and external evaluation frameworks are optional enhancements, not installation requirements. Citation normalization requires supplied references or verifiable metadata; the skill never invents missing bibliographic data.
 
 **Important compatibility boundary:** a host must be able to discover a folder-based `SKILL.md` and read its referenced Markdown files. A model or chat surface that accepts only a single prompt cannot install this package as a persistent skill; attach the complete directory or paste the required files for that session instead.
 
@@ -245,6 +251,11 @@ The exact discovery path, reload command, and slash-command behavior are tool-sp
 
 When a tool documents a different project or global skill directory, use that directory and preserve the same package structure. If it supports the shared `.agents/skills/` convention, the generic installation above usually applies.
 
+For Codex, Cursor, Windsurf, or another host with a dedicated skills directory, copy the complete
+directory into that documented location, reload the host, and verify that `SKILL.md` and its
+supporting Markdown files are readable. Use natural-language activation when slash commands are
+not available.
+
 ## Usage
 
 The skill auto-routes between `PARA`, `HUM`, `SLOP`, `FACT`, `GRAM`, `EVAL`, and `FULL`. Request a mode explicitly when precision matters:
@@ -259,6 +270,12 @@ Use humanize-writing in EVAL mode. Score the candidate against the source using
 the evaluation rubric. Check guardrails before assigning quality scores.
 ```
 
+```text
+Use humanize-writing in CITE mode. Normalize the supplied references to APA 7.
+Preserve every author, title, date, DOI, URL, quotation, and claim. Mark missing
+metadata as UNVERIFIED instead of inventing it.
+```
+
 For the strongest results, provide the target audience, purpose, desired style preset, and a short writing sample. The output language follows the input language unless translation is requested.
 
 ## Platform notes
@@ -268,9 +285,13 @@ For the strongest results, provide the target audience, purpose, desired style p
 - Keep all supporting files together and reload/restart the host after installation if it does not discover the skill immediately.
 - The skill never treats AI-detector evasion as the objective; readability, fidelity, correctness, and audience fit take priority.
 
+## License
+
+This project is released under the **MIT License**. See [`LICENSE`](LICENSE).
+
 ## Attribution
 
-Adapts and expands on [blader/humanizer](https://github.com/blader/humanizer) (26 AI-writing patterns, plus voice matching and audience-fit checks), plus EYD 2022/PUEBI & KBBI for Bahasa Indonesia and standard copy-editing practice (Chicago/APA house style) for English.
+Adapts and expands on [blader/humanizer](https://github.com/blader/humanizer) (26 AI-writing patterns, plus voice matching and audience-fit checks), plus EYD 2022/PUEBI & KBBI for Bahasa Indonesia and seven citation and copy-editing styles: APA 7, MLA 9, Turabian, Vancouver, Harvard, Chicago, and IEEE.
 
 ---
 
