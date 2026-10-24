@@ -1,8 +1,12 @@
 # Humanize Writing
 
-A rewriting engine that transforms AI-flavored text — **Bahasa Indonesia or English** — into natural, human-sounding prose. **Meaning-preserving** and **fact-grounding**: it never invents statistics, quotes, names, or citations, and it flags suspicious claims instead of silently propagating them.
+A rewriting engine that turns AI-flavored text in **Bahasa Indonesia or English** into natural,
+human-sounding prose. It preserves meaning and stays grounded in the available evidence: it never
+invents statistics, quotations, names, or citations, and it flags suspicious claims instead of
+silently carrying them forward.
 
-> Working instructions are written in English so any Gen AI can use them; both input languages are fully supported, and output stays in the input language unless a translation is requested.
+> The working instructions are written in English so any Gen AI can use them. Both input languages
+> are fully supported, and the output remains in the input language unless translation is requested.
 
 ## What it does
 
@@ -10,7 +14,7 @@ A rewriting engine that transforms AI-flavored text — **Bahasa Indonesia or En
 |------------|--------------|
 | **Paraphrase** | Multi-level rewriting (lexical, syntactic, sentence, discourse) with a claim-by-claim meaning lock |
 | **Humanize** | Removes 26 core AI-writing patterns plus language-specific tells — EN lexicon (delve, tapestry, "plays a crucial role") and ID lexicon ("Tak dapat dipungkiri", "Dalam era globalisasi...", English-syntax calques) |
-| **Anti-Slop** | Kills formulaic skeletons, false symmetry, generic claims, and template openers/closers |
+| **Anti-Slop** | Removes formulaic structures, false symmetry, generic claims, and template openers/closers |
 | **De-Hallucinate** | 1:1 claim mapping, V1–V5 verification classes, flagging protocol for suspicious source claims |
 | **Grammar / EYD** | EYD 2022/PUEBI + KBBI for ID (incl. foreign terms preserved untranslated); US/UK register for EN + translationese detection |
 | **Citation styles** | APA 7, MLA 9, Turabian, Vancouver, Harvard, Chicago, and IEEE; formatting only from supplied or verified sources |
@@ -48,8 +52,8 @@ humanize-writing/
 │   ├── evaluation.md            ← rubric, pairwise evaluation, and regression protocol
 │   ├── patterns.md              ← composable rewrite patterns inspired by Fabric
 │   ├── grammar-id.md            ← EYD 2022/PUEBI + KBBI, §3.1 foreign terms stay untranslated
-│   └── grammar-en.md            ← US/UK register, translationese (ID→EN)
-│   └── citations.md              ← seven citation-style normalization workflow
+│   ├── grammar-en.md            ← US/UK register, translationese (ID→EN)
+│   └── citations.md             ← seven citation-style normalization workflow
 ├── references/
 │   ├── ai-lexicon-en.md         ← EN AI word/structure lexicon + density scoring
 │   ├── ai-lexicon-id.md         ← ID AI word/structure lexicon + density scoring
@@ -64,13 +68,16 @@ humanize-writing/
 
 ## Non-negotiable constraints
 
-1. **Meaning preservation** — the rewrite asserts the same claims as the source, no more and no less.
-2. **No fabrication** — no invented statistics, names, quotes, dates, studies, or citations. Suspicious claims are flagged, never silently "fixed" or propagated.
-3. **Register target** — output stays in the input language; style is chosen per preset, not defaulted to over-formal AI prose.
+1. **Meaning preservation** — the rewrite makes the same claims as the source, no more and no less.
+2. **No fabrication** — do not invent statistics, names, quotations, dates, studies, or citations. Flag suspicious claims rather than silently "fixing" or propagating them.
+3. **Register target** — keep the output in the input language and choose its style through a preset instead of defaulting to overly formal AI prose.
 
 ## Cross-platform installation and usage
 
-This is a portable [Agent Skills](https://agentskills.io/) package. Keep the complete `humanize-writing/` directory, including `SKILL.md`, `core/`, `protocols/`, `references/`, `checklists/`, and `templates/`. Do not copy only `SKILL.md`; the main file references the supporting documents.
+This is a portable [Agent Skills](https://agentskills.io/) package. Keep the complete
+`humanize-writing/` directory, including `SKILL.md`, `core/`, `protocols/`, `references/`,
+`checklists/`, and `templates/`. Do not copy only `SKILL.md`: it references the supporting
+documents.
 
 ### Compatibility and prerequisites
 
@@ -87,19 +94,29 @@ This is a portable [Agent Skills](https://agentskills.io/) package. Keep the com
 | Windsurf | Agent Skills support varies by release | Documented workspace skill path or `.agents/skills/` | A release with custom workflow/skill support | Reload the workspace and request `humanize-writing` |
 | Other compatible agents | Depends on implementation | `.agents/skills/` or documented platform path | Agent Skills discovery and Markdown resource access | Follow the host's reload/list command |
 
-The skill itself has no runtime package, API key, database, or operating-system-specific dependency. All rewriting, citation-style guidance, guardrails, and evaluation procedures are instruction-driven. LanguageTool, web access, and external evaluation frameworks are optional enhancements, not installation requirements. Citation normalization requires supplied references or verifiable metadata; the skill never invents missing bibliographic data.
+The skill has no runtime package, API key, database, or operating-system-specific dependency.
+Rewriting, citation-style guidance, guardrails, and evaluation are instruction-driven. LanguageTool,
+web access, and external evaluation frameworks are optional enhancements, not installation
+requirements. Citation normalization requires supplied references or verifiable metadata; the skill
+never invents missing bibliographic data.
 
-**Important compatibility boundary:** a host must be able to discover a folder-based `SKILL.md` and read its referenced Markdown files. A model or chat surface that accepts only a single prompt cannot install this package as a persistent skill; attach the complete directory or paste the required files for that session instead.
+**Compatibility boundary:** the host must be able to discover a folder-based `SKILL.md` and read
+its referenced Markdown files. A model or chat surface that accepts only a single prompt cannot
+install this package as a persistent skill; attach the complete directory or paste the required
+files for that session instead.
 
 ### Common installation options
 
-From a local checkout, copy the directory into the platform-specific location below. Replace `/path/to/humanize-writing` with the directory containing this README.
+From a local checkout, copy the directory into the platform-specific location below. Replace
+`/path/to/humanize-writing` with the directory that contains this README.
 
 ```sh
 cp -R /path/to/humanize-writing <skills-directory>/humanize-writing
 ```
 
-If the skill is published in a compatible skills registry, use that registry's installer instead, then verify that the full supporting directory was installed. Registry commands and package names vary by platform.
+If the skill is published in a compatible skills registry, use the registry's installer instead,
+then verify that the complete supporting directory was installed. Registry commands and package
+names vary by platform.
 
 ### Claude Code
 
@@ -135,7 +152,9 @@ mkdir -p ~/.config/opencode/skills
 cp -R /path/to/humanize-writing ~/.config/opencode/skills/humanize-writing
 ```
 
-Start OpenCode in the project and request the task in natural language. If your OpenCode installation supports a skills manager, the equivalent project/global installation can be used; manual copying is the fallback.
+Start OpenCode in the project and describe the task in natural language. If your installation
+supports a skills manager, use its equivalent project or global installation; manual copying is
+the fallback.
 
 ### Gemini CLI
 
@@ -160,7 +179,8 @@ mkdir -p .agents/skills
 cp -R /path/to/humanize-writing .agents/skills/humanize-writing
 ```
 
-Use `/skills list` or the equivalent skills command to verify discovery, then ask Gemini CLI to use `humanize-writing`.
+Use `/skills list`, or the equivalent skills command, to verify discovery. Then ask Gemini CLI to
+use `humanize-writing`.
 
 ### GitHub Copilot CLI
 
@@ -178,7 +198,9 @@ mkdir -p ~/.copilot/skills
 cp -R /path/to/humanize-writing ~/.copilot/skills/humanize-writing
 ```
 
-Copilot CLI discovers compatible `SKILL.md` files from supported project and user skill directories. Start a new task and say, for example, `Use humanize-writing to rewrite this in natural Indonesian while preserving every claim`. If available in your version, use `/skills list` to verify discovery.
+Copilot CLI discovers compatible `SKILL.md` files in supported project and user skill directories.
+Start a new task and say, for example, `Use humanize-writing to rewrite this in natural Indonesian
+while preserving every claim`. If available in your version, use `/skills list` to verify discovery.
 
 If the skill was added during an active session, run:
 
@@ -212,7 +234,8 @@ mkdir -p ~/.agents/skills
 cp -R /path/to/humanize-writing ~/.agents/skills/humanize-writing
 ```
 
-Open or reload the workspace, then ask the Antigravity agent to use `humanize-writing`. Antigravity exposes both automatic invocation and explicit `/<skill-name>` invocation when supported.
+Open or reload the workspace, then ask the Antigravity agent to use `humanize-writing`.
+Antigravity supports both automatic invocation and explicit `/<skill-name>` invocation where available.
 
 ### ChatGPT
 
@@ -235,7 +258,7 @@ ChatGPT may scan an uploaded skill and mark it as **Needs Review** or **Blocked*
 
 ### Codex CLI, Cursor, Windsurf, and other compatible tools
 
-For tools that implement the open Agent Skills convention, install the complete directory as:
+For tools that implement the open Agent Skills convention, install the complete directory at:
 
 ```text
 <project>/.agents/skills/humanize-writing/SKILL.md
@@ -247,9 +270,12 @@ or, for a user-wide installation:
 ~/.agents/skills/humanize-writing/SKILL.md
 ```
 
-The exact discovery path, reload command, and slash-command behavior are tool-specific. Natural-language activation remains the portable fallback.
+The exact discovery path, reload command, and slash-command behavior are tool-specific.
+Natural-language activation remains the portable fallback.
 
-When a tool documents a different project or global skill directory, use that directory and preserve the same package structure. If it supports the shared `.agents/skills/` convention, the generic installation above usually applies.
+When a tool documents a different project or global skill directory, use that directory while
+preserving the same package structure. If it supports the shared `.agents/skills/` convention, the
+generic installation above usually applies.
 
 For Codex, Cursor, Windsurf, or another host with a dedicated skills directory, copy the complete
 directory into that documented location, reload the host, and verify that `SKILL.md` and its
@@ -258,7 +284,8 @@ not available.
 
 ## Usage
 
-The skill auto-routes between `PARA`, `HUM`, `SLOP`, `FACT`, `GRAM`, `EVAL`, and `FULL`. Request a mode explicitly when precision matters:
+The skill routes requests to `PARA`, `HUM`, `SLOP`, `FACT`, `GRAM`, `EVAL`, or `FULL`. Request a
+mode explicitly when precision matters:
 
 ```text
 Use humanize-writing in HUM mode. Rewrite this English text so it sounds natural.
@@ -276,14 +303,16 @@ Preserve every author, title, date, DOI, URL, quotation, and claim. Mark missing
 metadata as UNVERIFIED instead of inventing it.
 ```
 
-For the strongest results, provide the target audience, purpose, desired style preset, and a short writing sample. The output language follows the input language unless translation is requested.
+For the best results, provide the target audience, purpose, preferred style preset, and a short
+writing sample. The output language follows the input language unless translation is requested.
 
 ## Platform notes
 
 - Platform support is determined by the host application's current Agent Skills implementation, not by this skill alone.
 - Manual installation is the most reliable and transparent option.
 - Keep all supporting files together and reload/restart the host after installation if it does not discover the skill immediately.
-- The skill never treats AI-detector evasion as the objective; readability, fidelity, correctness, and audience fit take priority.
+- The skill does not treat AI-detector evasion as the objective; readability, fidelity, correctness,
+  and audience fit take priority.
 
 ## License
 
@@ -291,8 +320,13 @@ This project is released under the **MIT License**. See [`LICENSE`](LICENSE).
 
 ## Attribution
 
-Adapts and expands on [blader/humanizer](https://github.com/blader/humanizer) (26 AI-writing patterns, plus voice matching and audience-fit checks), plus EYD 2022/PUEBI & KBBI for Bahasa Indonesia and seven citation and copy-editing styles: APA 7, MLA 9, Turabian, Vancouver, Harvard, Chicago, and IEEE.
+This project adapts and expands on [blader/humanizer](https://github.com/blader/humanizer)
+(26 AI-writing patterns, plus voice matching and audience-fit checks). It also incorporates
+EYD 2022/PUEBI and KBBI for Bahasa Indonesia, along with seven citation and copy-editing styles:
+APA 7, MLA 9, Turabian, Vancouver, Harvard, Chicago, and IEEE.
 
 ---
 
-Language-specific examples remain in the Indonesian protocols and lexicon so the skill can process Indonesian text correctly. The operational instructions and installation guidance in this package are written in English for cross-model compatibility.
+Language-specific examples remain in the Indonesian protocols and lexicon so the skill can process
+Indonesian text correctly. The operational instructions and installation guidance are written in
+English for cross-model compatibility.
