@@ -25,9 +25,9 @@ Pick via triggers: paraphrase / parafrase · humanize / humanisasi / hilangkan j
 
 One register is locked before rewriting:
 
-**Formal · Akademik · Profesional · Kasual · Diplomatis · Sekolah · Simple · Percaya Diri · Marketing**
+**Formal · Academic · Professional · Casual · Diplomatic · Educational · Simple · Confident · Marketing**
 
-Presets shape *how* things are said — meaning lock and anti-hallucination still constrain *what* is said. Percaya Diri / Marketing never license invented claims or fake proof.
+Presets shape *how* things are said — meaning lock and anti-hallucination still constrain *what* is said. Confident / Marketing never license invented claims or fake proof. Indonesian aliases remain accepted.
 
 ## Layout
 

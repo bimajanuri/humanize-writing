@@ -1,7 +1,7 @@
 ---
 name: humanize-writing
 description: |
-  Rewrites, paraphrases, and humanizes Bahasa Indonesia or English text while preserving meaning and avoiding fabricated facts. Supports paraphrase, humanize, anti-slop, de-hallucination/fact-grounding, grammar/EYD, evaluation, and full rewrite workflows. Use for natural rewrites, AI-pattern reduction, grammar checks, factual grounding, quality evaluation, shortening, tone/register changes, or named styles including Formal, Akademik, Profesional, Kasual, Diplomatis, Sekolah, Simple, Percaya Diri, and Marketing. Includes language routing, claim guardrails, modular rewrite patterns, optional LanguageTool integration guidance, evaluation rubrics, AI-pattern lexicons, and final audit gates.
+  Rewrites, paraphrases, and humanizes Bahasa Indonesia or English text while preserving meaning and avoiding fabricated facts. Supports paraphrase, humanize, anti-slop, de-hallucination/fact-grounding, grammar/EYD, evaluation, and full rewrite workflows. Use for natural rewrites, AI-pattern reduction, grammar checks, factual grounding, quality evaluation, shortening, tone/register changes, or named styles including Formal, Academic, Professional, Casual, Diplomatic, Educational, Simple, Confident, and Marketing. Includes language routing, claim guardrails, modular rewrite patterns, optional LanguageTool integration guidance, evaluation rubrics, AI-pattern lexicons, and final audit gates.
 compatibility: Agent Skills-compatible AI coding assistants and chat agents
 ---
 
@@ -49,11 +49,11 @@ Pick the mode from the user's request before touching the text. If the request i
 
 FULL mode locks **one** style preset before rewriting. Definitions, per-style examples (ID & EN), and AI-tell watchlists live in `references/style-presets.md`:
 
-**Formal · Akademik · Profesional · Kasual · Diplomatis · Sekolah · Simple · Percaya Diri · Marketing**
+**Formal · Academic · Professional · Casual · Diplomatic · Educational · Simple · Confident · Marketing**
 
-- User names a style → use it. Context unambiguous (thesis → Akademik; office email → Profesional; landing page → Marketing) → infer and state it in the change log. Otherwise ask ONE short question with 2–3 best-fit options.
-- Never mix two presets in one text; "formal tapi santai" maps to the nearest preset (Profesional), noted as a blend.
-- Presets shape *how* things are said — meaning lock, anti-hallucination, and grammar gates still constrain *what* is said. **Percaya Diri / Marketing never license invented claims or fake proof.**
+- User names a style → use it. Context unambiguous (thesis → Academic; office email → Professional; landing page → Marketing) → infer and state it in the change log. Indonesian aliases are accepted. Otherwise ask ONE short question with 2–3 best-fit options.
+- Never mix two presets at once; "formal tapi santai" maps to the nearest preset (Professional), noted as a blend.
+- Presets shape *how* things are said — meaning lock, anti-hallucination, and grammar gates still constrain *what* is said. **Confident / Marketing never license invented claims or fake proof.**
 
 ---
 
@@ -74,7 +74,7 @@ FULL mode locks **one** style preset before rewriting. Definitions, per-style ex
 ## QUICK START (what to actually do)
 
 1. Detect language → set `<lang>`.
-2. Lock the **meaning inventory**: list every factual claim, number, name, and entity in the source. This is the contract the rewrite must honor (`core/workflow.md`, Stage 0). In FULL mode also lock the **style preset** — Formal, Akademik, Profesional, Kasual, Diplomatis, Sekolah, Simple, Percaya Diri, Marketing (`references/style-presets.md`).
+2. Lock the **meaning inventory**: list every factual claim, number, name, and entity in the source. This is the contract the rewrite must honor (`core/workflow.md`, Stage 0). In FULL mode also lock the **style preset** — Formal, Academic, Professional, Casual, Diplomatic, Educational, Simple, Confident, Marketing (`references/style-presets.md`).
 3. Run the mode protocol(s).
 4. Apply the output guardrails in `protocols/guardrails.md`.
 5. Self-audit with `checklists/final-audit.md`: (a) meaning preserved? (b) AI patterns gone? (c) grammar clean? (d) register right? (e) quality thresholds met?

@@ -21,7 +21,7 @@ Every file with a `<lang>` placeholder resolves to `id` or `en`. This file defin
 | Register range | Formal (baku), semi-formal, casual/santai — must choose consciously; default semi-formal for general prose | Formal / neutral / conversational — default neutral |
 | Mechanics | EYD 2022 rules (see `protocols/grammar-id.md`) | Spelling register (US/UK) consistency, serial comma policy |
 
-> Register/style selection (the 9 FULL-mode presets: Formal, Akademik, Profesional, Kasual, Diplomatis, Sekolah, Simple, Percaya Diri, Marketing) is defined in `references/style-presets.md`. The preset decides register; this file decides language mechanics. Istilah asing/Inggris in ID text stay as-is — never translated (`protocols/grammar-id.md` §3.1).
+> Register/style selection (the 9 FULL-mode presets: Formal, Academic, Professional, Casual, Diplomatic, Educational, Simple, Confident, Marketing) is defined in `references/style-presets.md`. Indonesian aliases are accepted. The preset decides register; this file decides language mechanics. Istilah asing/Inggris in ID text stay as-is — never translated (`protocols/grammar-id.md` §3.1).
 
 ## 3. Indonesian-specific rewrite rules
 
