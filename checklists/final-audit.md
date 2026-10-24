@@ -1,5 +1,6 @@
 # Final Audit — mandatory before delivering any rewrite
 
+Run `protocols/guardrails.md` before these five gates. This audit is not a substitute for claim parity or literal-data validation.
 Run all five gates on the OUTPUT (not the input). A failed gate → fix and re-run the gate you failed. Deliver nothing until every gate passes or a justified exception is documented in the report.
 
 ---
@@ -40,6 +41,9 @@ Rescan the rewritten OUTPUT with the matching lexicon (`references/ai-lexicon-<l
 - [ ] Rhythm variance present: some short sentences, some long; varied paragraph lengths; varied openings.
 - [ ] Transitions are earned, not performative ("Moreover"-chains cut to what's needed).
 - [ ] The text sounds like ONE consistent human with a point of view, not a texture mix.
+- [ ] Every retained sentence adds information, a consequence, or a necessary transition; cut emphasis that merely tells the reader a point matters.
+- [ ] The text fits the implied reader and purpose; it does not re-explain context already available to that reader.
+- [ ] If a writing sample was supplied, rhythm, word choice, punctuation, openings, transitions, and deliberate quirks match it unless meaning or correctness would be harmed.
 
 ## Gate 5 — AI-risk heuristic (regression check, not a guarantee)
 
@@ -57,5 +61,9 @@ Score proxies on the output (see lexicon §5 for thresholds):
 ## Sign-off
 
 - Gates passed: 1 ☐ 2 ☐ 3 ☐ 4 ☐ 5 ☐
+- No claim additions or drops ☐
+- No modality, scope, negation, or causality drift ☐
+- Numbers, dates, units, entities, URLs, citations, and quotes match ☐
+- Guardrail status: `PASS` / `PASS_WITH_FLAGS` / `FAIL`
 - Documented exceptions (with reason): ______
 - Flags to user (hallucination suspects etc.): ______

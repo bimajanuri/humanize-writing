@@ -71,3 +71,12 @@ Common Indonesian-to-English transfer errors to hunt:
 ## 8. Output format for GRAM mode
 
 (a) corrected text; (b) compact change list by category (only meaningful corrections); (c) style-vs-error labels; (d) flags for doubtful items left as-is.
+
+## 9. Optional LanguageTool pass
+
+If a local LanguageTool CLI or HTTP server is available, use it only after this protocol's sweep. Review matches individually:
+
+- accept clear spelling, agreement, punctuation, and repeated-word errors;
+- reject suggestions that alter technical terms, names, quotes, modality, or the author's deliberate voice;
+- label disputed suggestions as `style` or `flag`, never as mandatory grammar corrections;
+- rerun the meaning and literal-data guardrails after accepted fixes.

@@ -17,7 +17,7 @@ A real paraphrase changes the **architecture** of the expression at four levels.
 
 ## 2. Mandatory constraints
 
-1. **Preserve the meaning inventory** (workflow Stage 0): every claim, number, name, modality, and scope qualifier must survive. Run the Stage 5 diff.
+1. **Preserve the meaning inventory** (workflow Stage 0): every claim, number, name, modality, and scope qualifier must survive. Run the guardrail check and Stage 6 audit.
 2. **Never paraphrase**: proper nouns, defined technical terms, idioms whose literal paraphrase would break meaning, quotes, citation titles.
 3. **Do not add or drop claims.** "Shorter" is only allowed if the user asks for compression — and then still no claim loss, only redundancy loss.
 4. **Sense-check each replacement**: a thesaurus hit is not a paraphrase if the sense differs ("robust method" ≠ "angkuh metode" — pick by meaning, not dictionary adjacency).
@@ -29,7 +29,7 @@ A real paraphrase changes the **architecture** of the expression at four levels.
 2. Segment the source into **idea units** (not sentences — one sentence often carries 2–3 units).
 3. Rewrite each unit with a different dominant level than the source used (if source was nominal → make it verbal; if source was clause-chained → use prepositional phrases).
 4. Re-sequence units if the logical order allows a different linear order (cause→effect vs effect→cause), keeping coherence.
-5. Check against the inventory claim-by-claim (Stage 5 audit).
+5. Check against the inventory claim-by-claim (guardrail check and Stage 6 audit).
 6. Read aloud: the result must sound like someone *saying the idea in their own words*, not like a puzzle assembled from parts.
 
 ## 4. Paraphrase quality bar

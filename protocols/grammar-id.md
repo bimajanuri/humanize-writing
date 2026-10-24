@@ -74,3 +74,12 @@ Kebijakan default untuk SEMUA mode (terutama GRAM, PARA, HUM): **istilah asing d
 ## 7. Output format for GRAM mode
 
 Deliver: (a) the corrected text, (b) a compact list of notable corrections grouped by category (only meaningful ones, not every comma), (c) flags for anything doubtful that was left as-is. Never claim a correction is required by EYD when it's a style preference — label style fixes as "gaya".
+
+## 8. Optional LanguageTool pass
+
+If a local LanguageTool CLI or HTTP server is available, use it only after this protocol's sweep. Review matches individually:
+
+- accept clear spelling, agreement, punctuation, and repeated-word errors;
+- reject suggestions that translate or alter technical terms, names, quotes, modality, or intentional colloquial voice;
+- label disputed suggestions as `gaya` or `flag`, never as mandatory EYD corrections;
+- rerun the meaning and literal-data guardrails after accepted fixes.

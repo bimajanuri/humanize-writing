@@ -47,7 +47,7 @@ Allowed additions that are **not** factual claims: transitions, definitions of e
 ## 4. Translation & paraphrase risk map
 
 Highest hallucination risk moments (slow down here):
-1. **Numbers and units** during any transformation — copy exactly, check once more at Stage 5.
+1. **Numbers and units** during any transformation — copy exactly, check once more during the guardrail check and Stage 6 audit.
 2. **Names and titles** — never "normalize" a name into a more common spelling.
 3. **Direction of causality** — "X causes Y" vs "Y is associated with X" must not flip.
 4. **Comparatives and superlatives** — "one of the largest" ≠ "the largest".

@@ -1,7 +1,8 @@
 ---
 name: humanize-writing
 description: |
-  Rewrites, paraphrases, and humanizes Bahasa Indonesia or English text while preserving meaning and avoiding fabricated facts. Supports six modes: paraphrase, humanize, anti-slop, de-hallucination/fact-grounding, grammar/EYD, and full rewrite. Use for natural rewrites, AI-pattern reduction, EYD/PUEBI or English grammar checks, fact-checking drafts, shortening, tone/register changes, or named styles including Formal, Akademik, Profesional, Kasual, Diplomatis, Sekolah, Simple, Percaya Diri, and Marketing. Includes language routing, meaning-preservation and fact-grounding gates, anti-hallucination protocols, AI-pattern lexicons, and a final audit report.
+  Rewrites, paraphrases, and humanizes Bahasa Indonesia or English text while preserving meaning and avoiding fabricated facts. Supports paraphrase, humanize, anti-slop, de-hallucination/fact-grounding, grammar/EYD, evaluation, and full rewrite workflows. Use for natural rewrites, AI-pattern reduction, grammar checks, factual grounding, quality evaluation, shortening, tone/register changes, or named styles including Formal, Akademik, Profesional, Kasual, Diplomatis, Sekolah, Simple, Percaya Diri, and Marketing. Includes language routing, claim guardrails, modular rewrite patterns, optional LanguageTool integration guidance, evaluation rubrics, AI-pattern lexicons, and final audit gates.
+compatibility: Agent Skills-compatible AI coding assistants and chat agents
 ---
 
 # Humanize Writing
@@ -11,9 +12,13 @@ A **rewriting engine** that transforms AI-flavored text (Bahasa Indonesia or Eng
 ## Attribution
 
 This skill adapts and expands on:
-- **blader/humanizer** — the 25 AI-writing patterns (EN) used as the detection baseline
+- **blader/humanizer** — the 26 AI-writing patterns used as the detection baseline
 - **EYD 2022 / PUEBI & KBBI** — Bahasa Indonesia orthography and dictionary standards
 - Standard copy-editing practice (Chicago / APA house style for EN; registered style guides for ID)
+- **Ragas / DeepEval** — rubric-based evaluation, test cases, and regression thinking
+- **Guardrails** — explicit input/output validation and failure handling
+- **LanguageTool** — mechanical grammar and spelling checks when an external checker is available
+- **Fabric** — composable, reusable task patterns
 
 > **Non-negotiable constraints** (apply to every mode):
 > 1. **Meaning preservation** — the rewrite must assert the same claims as the source, no more and no less. If a rewrite would add, drop, or soften a factual claim, it is a bug.
@@ -33,6 +38,7 @@ Pick the mode from the user's request before touching the text. If the request i
 | **SLOP** Anti-Slop | "remove AI slop", "too generic/listicle/AI-typical content", "make it less formulaic" | `protocols/anti-slop.md` |
 | **FACT** De-Hallucinate | "fact-check", "remove hallucinations", "is this true?", "ground this text" | `protocols/anti-hallucination.md` |
 | **GRAM** Grammar/EYD | "cek EYD", "check grammar", "periksa ejaan", "fix punctuation/spelling" | `protocols/grammar-id.md` or `protocols/grammar-en.md` |
+| **EVAL** Quality Evaluation | "evaluate this rewrite", "score quality", "compare versions", "uji kualitas" | `protocols/evaluation.md` + `references/evaluation-rubric.md` |
 | **FULL** Full Rewrite | default / "make this not look like AI at all" | All of the above, in pipeline order (see `core/workflow.md`) + one style preset from `references/style-presets.md` |
 
 **Language routing**: auto-detect the input language (ID vs EN). Mixed-language inputs are handled per-segment. For every language-specific file use the matching variant: `<lang>` = `id` or `en`. If detection is uncertain, ask one short question rather than guessing.
@@ -57,8 +63,9 @@ FULL mode locks **one** style preset before rewriting. Definitions, per-style ex
 2. `core/workflow.md` — the pipeline stages and quality gates.
 3. `core/language-router.md` — ID vs EN handling rules.
 4. The protocol(s) for your mode (table above).
-5. `checklists/final-audit.md` — run before delivering ANY rewrite.
-6. `templates/report.md` — format of the deliverable (when the user wants a report; otherwise deliver clean text only).
+5. `protocols/guardrails.md` — validate every output before delivery.
+6. `checklists/final-audit.md` — run before delivering ANY rewrite.
+7. `templates/report.md` — format of the deliverable (when the user wants a report; otherwise deliver clean text only).
 
 > **Do not skip the final audit.** The audit catches meaning drift, residual AI patterns, and grammar regressions — the three ways rewrites fail.
 
@@ -69,8 +76,9 @@ FULL mode locks **one** style preset before rewriting. Definitions, per-style ex
 1. Detect language → set `<lang>`.
 2. Lock the **meaning inventory**: list every factual claim, number, name, and entity in the source. This is the contract the rewrite must honor (`core/workflow.md`, Stage 0). In FULL mode also lock the **style preset** — Formal, Akademik, Profesional, Kasual, Diplomatis, Sekolah, Simple, Percaya Diri, Marketing (`references/style-presets.md`).
 3. Run the mode protocol(s).
-4. Self-audit with `checklists/final-audit.md`: (a) meaning preserved? (b) AI patterns gone? (c) grammar clean? (d) register right?
-5. Deliver. If the user asked for a report, use `templates/report.md`; otherwise output the rewritten text plus at most 3–5 short notes about notable changes (never chatbot-residue phrasing like "Here's your rewritten text!").
+4. Apply the output guardrails in `protocols/guardrails.md`.
+5. Self-audit with `checklists/final-audit.md`: (a) meaning preserved? (b) AI patterns gone? (c) grammar clean? (d) register right? (e) quality thresholds met?
+6. Deliver. If the user asked for a report, use `templates/report.md`; otherwise output the rewritten text plus at most 3–5 short notes about notable changes (never chatbot-residue phrasing like "Here's your rewritten text!").
 
 ---
 

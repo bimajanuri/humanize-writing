@@ -1,6 +1,6 @@
 # Protocol — Humanize, English (HUM / en)
 
-Goal: remove machine-writing signatures so the text reads as the work of a specific human writer. Detection baseline: the 25 AI-writing patterns (blader/humanizer lineage), extended with current tells. Full lexicon: `references/ai-lexicon-en.md`.
+Goal: remove machine-writing signatures so the text reads as the work of a specific human writer. Detection baseline: blader/humanizer's 26 AI-writing patterns, extended with current tells and language-specific patterns. Full lexicon: `references/ai-lexicon-en.md`.
 
 **Method rule**: every pattern is fixed by *rethinking the sentence*, never by swapping one flagged word for a fancier synonym. Word-swap humanizing is itself detectable and leaves the skeleton intact.
 
@@ -49,6 +49,7 @@ Goal: remove machine-writing signatures so the text reads as the work of a speci
 25. **Meta-writing about the text itself** — "Below is a comprehensive exploration of...", "This article will first discuss...", heading repeated as the first sentence.
 26. **Knowledge-limit disclaimers & fake uncertainty** — "I cannot verify, but it is generally believed..." → verify or remove.
 27. **Writing about a previous version** — "Certainly! Here is the revised version..." → delete.
+28. **Writing for the wrong reader** — re-explaining background the reader already has or delaying the decision until after generic diagnosis → lead with the subject, decision, or consequence that this reader needs. Keep context only when it changes the reader's decision.
 
 ## 2. Density heuristic (how to decide what counts)
 
@@ -79,3 +80,4 @@ After rewriting, rescan the OUTPUT with the lexicon (`references/ai-lexicon-en.m
 - Remaining flagged words must each be justified (term of art, quote, or the best available word).
 - Check rhythm: paragraph-level variance in sentence length and openings.
 - Check formatting tells (bold, headings, dashes) — these survive word-level editing most often.
+- Check audience fit: the draft should reach the reader's actual need without repeating context already available in the surrounding conversation or document.

@@ -1,6 +1,6 @@
 # Protocol — Humanize, Bahasa Indonesia (HUM / id)
 
-Goal: menghapus jejak penulisan mesin agar teks terbaca sebagai tulisan manusia berbahasa Indonesia yang natural. Deteksi berbasis pola AI (adaptasi blader/humanizer) + pola khas teks AI berbahasa Indonesia. Lexicon lengkap: `references/ai-lexicon-id.md`.
+Goal: menghapus jejak penulisan mesin agar teks terbaca sebagai tulisan manusia berbahasa Indonesia yang natural. Deteksi berbasis 26 pola AI dari blader/humanizer, lalu diperluas dengan pola khas teks AI berbahasa Indonesia. Lexicon lengkap: `references/ai-lexicon-id.md`.
 
 **Aturan metode**: setiap pola diperbaiki dengan *menuliskan ulang idenya*, bukan menukar satu kata baku dengan sinonim kamus. Menukar sinonim tanpa mengubah struktur kalimat justru meninggalkan kerangka mesin.
 
@@ -47,6 +47,7 @@ Goal: menghapus jejak penulisan mesin agar teks terbaca sebagai tulisan manusia 
 23. **Residu chat** — "Tentu! Berikut adalah...", "Semoga membantu!", "Sebagai AI...", "Berikut versi yang sudah direvisi..." → hapus semua.
 24. **Meta-tentang naskah** — "Makalah ini terdiri dari tiga bagian yang akan membahas..." sebagai kalimat pertama paragraf → hapus atau ganti fakta substansial.
 25. **Judul diulang jadi kalimat pertama** → hapus pengulangan.
+26. **Menulis untuk pembaca yang keliru** — mengulang konteks yang sudah diketahui pembaca atau menunda keputusan sampai setelah diagnosis umum → mulai dari pokok, keputusan, atau konsekuensi yang dibutuhkan pembaca. Pertahankan konteks hanya jika konteks itu memengaruhi keputusan pembaca.
 
 ## 2. Heuristik kepadatan (kapan suatu pola dihitung temuan)
 
@@ -76,3 +77,4 @@ Setelah menulis ulang, pindai ULANG output dengan lexicon (`references/ai-lexico
 - Kata tersisa yang terdeteksi harus bisa dipertahankan (istilah baku, kutipan, atau satu-satunya kata yang tepat).
 - Cek ritme: variasi panjang kalimat dan pembuka kalimat antar paragraf.
 - Cek pemicu format (bold, judul, tanda baca dekoratif) — ini paling sering lolos dari penyuntingan level kata.
+- Cek kecocokan pembaca: draf harus langsung menjawab kebutuhan pembaca tanpa mengulang konteks yang sudah tersedia dalam percakapan atau dokumen.
