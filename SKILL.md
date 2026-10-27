@@ -1,8 +1,6 @@
 ---
 name: humanize-writing
-description: |
-  Rewrites, paraphrases, and humanizes Bahasa Indonesia or English text while preserving meaning and avoiding fabricated facts. Supports paraphrase, humanize, anti-slop, de-hallucination/fact-grounding, grammar/EYD, citation-style normalization, evaluation, and full rewrite workflows. Use for natural rewrites, AI-pattern reduction, grammar checks, factual grounding, quality evaluation, shortening, tone/register changes, or named styles including Formal, Academic, Professional, Casual, Diplomatic, Educational, Simple, Confident, and Marketing. Includes language routing, claim guardrails, modular rewrite patterns, optional LanguageTool integration guidance, seven citation styles, evaluation rubrics, AI-pattern lexicons, and final audit gates.
-compatibility: Agent Skills-compatible AI coding assistants and chat agents
+description: Rewrites, paraphrases, and humanizes Bahasa Indonesia or English text while preserving meaning and avoiding fabricated facts. Use when rewriting AI-flavored prose to sound natural, paraphrasing without altering claims, removing formulaic AI slop, checking EYD 2022 or English grammar, verifying factual grounding, formatting citations (APA 7, MLA 9, Turabian, Vancouver, Harvard, Chicago, IEEE), evaluating rewrite quality, or applying style presets (Formal, Academic, Professional, Casual, Diplomatic, Educational, Simple, Confident, Marketing).
 ---
 
 # Humanize Writing
@@ -75,12 +73,34 @@ FULL mode locks **one** style preset before rewriting. Definitions, per-style ex
 
 ## QUICK START (what to actually do)
 
-1. Detect language → set `<lang>`.
-2. Lock the **meaning inventory**: list every factual claim, number, name, and entity in the source. This is the contract the rewrite must honor (`core/workflow.md`, Stage 0). In FULL mode also lock the **style preset** — Formal, Academic, Professional, Casual, Diplomatic, Educational, Simple, Confident, Marketing (`references/style-presets.md`).
-3. Run the mode protocol(s).
-4. Apply the output guardrails in `protocols/guardrails.md`.
-5. Self-audit with `checklists/final-audit.md`: (a) meaning preserved? (b) AI patterns gone? (c) grammar clean? (d) register right? (e) quality thresholds met?
-6. Deliver. If the user asked for a report, use `templates/report.md`; otherwise output the rewritten text plus at most 3–5 short notes about notable changes (never chatbot-residue phrasing like "Here's your rewritten text!").
+Copy this checklist and track progress internally before delivering:
+
+- [ ] **Step 1 — Detect language & mode**: Set `<lang>` (`id` or `en`) and pick the mode from the router table (`core/language-router.md`).
+- [ ] **Step 2 — Lock meaning inventory & style preset**: List every factual claim, number, name, quote, modality, and entity in the source (`core/workflow.md`, Stage 0). In FULL mode, also lock one style preset (`references/style-presets.md`).
+- [ ] **Step 3 — Run mode protocol(s)**: Apply the matching protocol(s) from `protocols/` and reference tables from `references/`.
+- [ ] **Step 4 — Validate output guardrails**: Run `protocols/guardrails.md` to ensure zero claim additions/drops, zero modality drift, and exact literal-data parity.
+- [ ] **Step 5 — Run final audit**: Verify all 5 gates in `checklists/final-audit.md` (meaning preserved, AI patterns gone, grammar clean, read-aloud flow, quality thresholds met).
+- [ ] **Step 6 — Deliver**: If the user asked for a report, use `templates/report.md`; otherwise output clean rewritten text plus at most 3–5 short notes about notable changes.
+
+---
+
+## HANDLING MISSING OR AMBIGUOUS INFORMATION
+
+- **Ambiguous mode**: Default to **FULL** mode unless a narrow task (like grammar-only or citation-only) is clearly requested.
+- **Ambiguous style preset (in FULL mode)**: Infer from context when unambiguous (e.g., thesis → Academic; work email → Professional; landing page → Marketing) and note the choice in the change log. If genuinely ambiguous, ask ONE short question offering 2–3 best-fit options before rewriting.
+- **Uncertain input language**: Ask one short question rather than guessing.
+- **Missing citation metadata (in CITE mode)**: Never invent missing authors, dates, pages, DOIs, or URLs. Mark missing fields as `UNVERIFIED — check manually` (`protocols/citations.md`).
+- **Unverifiable or suspicious source claims**: Do not silently delete or "fix" them with invented facts. Preserve the user's claim and attach a numbered `⚠️ Flag` note (`protocols/anti-hallucination.md` §5).
+
+---
+
+## COMMON MISTAKES TO AVOID
+
+- **Synonym-swapping on an AI skeleton**: Keeping the same robotic sentence structure while swapping words. Fix by restructuring syntax and changing sentence boundaries (`protocols/paraphrase.md`).
+- **Adding "helpful" context or examples**: Inventing statistics, examples, attributions, or background facts not in the source. Fix by strictly honoring the Stage 0 meaning inventory.
+- **Modality or negation drift**: Turning "may reduce" into "reduces", "some" into "most", or dropping a negation. Fix by checking every claim against `protocols/guardrails.md`.
+- **Translating established English technical terms in Indonesian prose**: Turning terms like *machine learning*, *supply chain*, or *user interface* into awkward literal Indonesian. Keep established foreign terms untranslated per `protocols/grammar-id.md` §3.1.
+- **Chatbot residue in delivery**: Adding conversational filler like "Certainly! Here is your humanized text:" or "I hope this helps!". Deliver the text and factual notes only.
 
 ---
 
