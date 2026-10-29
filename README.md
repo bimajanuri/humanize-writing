@@ -242,13 +242,19 @@ Antigravity supports both automatic invocation and explicit `/<skill-name>` invo
 
 Gemini Apps (`gemini.google.com`, the Gemini Mac app, and the mobile app) support installing custom skills by uploading a folder or `.zip` archive (requires an 18+ account with **Keep Activity** turned on).
 
+> **Direct Download (Ready-to-Upload `.zip`):**
+> - [**Download `humanize-writing-gemini.zip` (Latest Release)**](https://github.com/bimajanuri/humanize-writing/releases/latest/download/humanize-writing-gemini.zip)
+> - ⚠️ **Do NOT use GitHub's green `Code → Download ZIP` button** (or `Source code (zip)` under Releases). GitHub wraps repository downloads inside a `humanize-writing-main/` subfolder, which causes Gemini Apps and ChatGPT upload validation to fail because `SKILL.md` is not at the archive root. Always use the pre-built release `.zip` above or the packaging command below.
+
 Per Google's upload requirements ([Create & manage skills for Gemini Apps](https://support.google.com/gemini/answer/17094296)):
 - `SKILL.md` must be located in the **root (main) folder** of the uploaded folder or `.zip` archive.
 - The skill `name` inside `SKILL.md` must be lowercase with hyphens (`humanize-writing`).
 - Only supported plain-text files (`.md`, `.txt`, etc.) are included; total size must not exceed 100 MB.
 - Hidden binary/OS metadata files (such as `.DS_Store`, `.git/`, `.pyc`, or `__MACOSX`) must be excluded so the upload validation does not fail.
 
-**Step 1: Prepare a clean `.zip` archive (with `SKILL.md` at the root)**
+**Step 1: Download or build a clean `.zip` archive (with `SKILL.md` at the root)**
+
+Download [`humanize-writing-gemini.zip`](https://github.com/bimajanuri/humanize-writing/releases/latest/download/humanize-writing-gemini.zip) directly from [GitHub Releases](https://github.com/bimajanuri/humanize-writing/releases/latest), or build it locally from a checkout:
 
 ```sh
 cd /path/to/humanize-writing
@@ -272,9 +278,9 @@ zip -r -X humanize-writing-gemini.zip \
 
 ChatGPT Skills can be installed by uploading a `.zip` package on accounts and workspaces with the Skills feature enabled (or attached directly in chat sessions if the Skills UI is unavailable).
 
-**Step 1: Create a clean `.zip` package**
+**Step 1: Download or create a clean `.zip` package**
 
-You can package either the root files (`humanize-writing-gemini.zip` above) or the complete `humanize-writing/` directory without hidden OS/Git files:
+Download [`humanize-writing.zip`](https://github.com/bimajanuri/humanize-writing/releases/latest/download/humanize-writing.zip) directly from [GitHub Releases](https://github.com/bimajanuri/humanize-writing/releases/latest), or package the directory locally without hidden OS/Git files:
 
 ```sh
 zip -r -X humanize-writing.zip humanize-writing \
